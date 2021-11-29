@@ -24,7 +24,7 @@ signupForm.addEventListener('submit', (e) => {
   // sign up the user
   auth.createUserWithEmailAndPassword(email, password).then(cred => {
     console.log(cred.user);
-    //signupForm.reset();
+    signupForm.reset();
   });
 });
 
@@ -75,7 +75,7 @@ WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject
     /*
      *  Event Handlers
      */
-
+    const auth = firebase.auth();
 $(function onDocReady() {
     $('#signinForm').submit(handleSignin);
     $('#registrationForm').submit(handleRegister);
