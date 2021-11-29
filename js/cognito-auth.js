@@ -4,15 +4,6 @@ var WildRydes = window.WildRydes || {};
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
 
-// listen for auth status changes
-auth.onAuthStateChanged(user => {
-    if (user) {
-      console.log('user logged in: ', user);
-    } else {
-      console.log('user logged out');
-    }
-});
-
 // signup
 const signupForm = document.querySelector('#registrationForm');
 signupForm.addEventListener('submit', (e) => {
@@ -73,6 +64,14 @@ WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject
     }
 });
 
+// listen for auth status changes
+auth.onAuthStateChanged(user => {
+    if (user) {
+      console.log('user logged in: ', user);
+    } else {
+      console.log('user logged out');
+    }
+});
     /*
      *  Event Handlers
      */
