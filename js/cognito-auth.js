@@ -1,9 +1,144 @@
-/*global WildRydes _config AmazonCognitoIdentity AWSCognito*/
-
 var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
+
+// listen for auth status changes
+auth.onAuthStateChanged(user => {
+    if (user) {
+      console.log('user logged in: ', user);
+    } else {
+      console.log('user logged out');
+    }
+});
+
+// signup
+const signupForm = document.querySelector('#registrationForm');
+signupForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  // get user info
+  const email = signupForm['email'].value;
+  const password = signupForm['password'].value;
+
+  // sign up the user
+  auth.createUserWithEmailAndPassword(email, password).then(cred => {
+    console.log(cred.user);
+    signupForm.reset();
+  });
+});
+
+// logout
+
+WildRydes.signOut = function signOut() {
+    //userPool.getCurrentUser().signOut();
+    auth.signOut().then(() => {
+    console.log('user signed out');
+  })
+};
+
+// login
+const loginForm = document.querySelector('#signinForm');
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  // get user info
+  const email = loginForm['email'].value;
+  const password = loginForm['password'].value;
+
+  // log the user in
+  auth.signInWithEmailAndPassword(email, password).then((cred) => {
+    console.log(cred.user);
+    // reset form
+    loginForm.reset();
+  });
+
+});
+
+    /*
+     *  Event Handlers
+     */
+
+$(function onDocReady() {
+    $('#signinForm').submit(handleSignin);
+    $('#registrationForm').submit(handleRegister);
+    $('#verifyForm').submit(handleVerify);
+});
+
+function handleSignin(event) {
+    var email = $('#emailInputSignin').val();
+    var password = $('#passwordInputSignin').val();
+    event.preventDefault();
+    signin(email, password,
+        function signinSuccess() {
+            console.log('Successfully Logged In');
+            window.location.href = 'ride.html';
+        },
+        function signinError(err) {
+            alert(err);
+        }
+    );
+}
+
+function handleRegister(event) {
+    var email = $('#emailInputRegister').val();
+    var password = $('#passwordInputRegister').val();
+    var password2 = $('#password2InputRegister').val();
+
+    var onSuccess = function registerSuccess(result) {
+        var cognitoUser = result.user;
+        console.log('user name is ' + cognitoUser.getUsername());
+        var confirmation = ('Registration successful. Please check your email inbox or spam folder for your verification code.');
+        if (confirmation) {
+            window.location.href = 'verify.html';
+        }
+    };
+    var onFailure = function registerFailure(err) {
+        alert(err);
+    };
+    event.preventDefault();
+
+    if (password === password2) {
+        register(email, password, onSuccess, onFailure);
+    } else {
+        alert('Passwords do not match');
+    }
+}
+
+function handleVerify(event) {
+    var email = $('#emailInputVerify').val();
+    var code = $('#codeInputVerify').val();
+    event.preventDefault();
+    verify(email, code,
+        function verifySuccess(result) {
+            console.log('call result: ' + result);
+            console.log('Successfully verified');
+            alert('Verification successful. You will now be redirected to the login page.');
+            window.location.href = signinUrl;
+        },
+        function verifyError(err) {
+            alert(err);
+        }
+    );
+}
+}(jQuery));
+
+
+
+
+
+
+
+
+
+
+
+
+/*global WildRydes _config AmazonCognitoIdentity AWSCognito
+
+
+
+
 
     var poolData = {
         UserPoolId: _config.cognito.userPoolId,
@@ -25,9 +160,7 @@ var WildRydes = window.WildRydes || {};
         AWSCognito.config.region = _config.cognito.region;
     }
 
-    WildRydes.signOut = function signOut() {
-        userPool.getCurrentUser().signOut();
-    };
+   
 
     WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
         var cognitoUser = userPool.getCurrentUser();
@@ -48,9 +181,9 @@ var WildRydes = window.WildRydes || {};
     });
 
 
-    /*
+    
      * Cognito User Pool functions
-     */
+  
 
     function register(email, password, onSuccess, onFailure) {
         var dataEmail = {
@@ -104,70 +237,5 @@ var WildRydes = window.WildRydes || {};
         return email.replace('@', '-at-');
     }
 
-    /*
-     *  Event Handlers
-     */
-
-    $(function onDocReady() {
-        $('#signinForm').submit(handleSignin);
-        $('#registrationForm').submit(handleRegister);
-        $('#verifyForm').submit(handleVerify);
-    });
-
-    function handleSignin(event) {
-        var email = $('#emailInputSignin').val();
-        var password = $('#passwordInputSignin').val();
-        event.preventDefault();
-        signin(email, password,
-            function signinSuccess() {
-                console.log('Successfully Logged In');
-                window.location.href = 'ride.html';
-            },
-            function signinError(err) {
-                alert(err);
-            }
-        );
-    }
-
-    function handleRegister(event) {
-        var email = $('#emailInputRegister').val();
-        var password = $('#passwordInputRegister').val();
-        var password2 = $('#password2InputRegister').val();
-
-        var onSuccess = function registerSuccess(result) {
-            var cognitoUser = result.user;
-            console.log('user name is ' + cognitoUser.getUsername());
-            var confirmation = ('Registration successful. Please check your email inbox or spam folder for your verification code.');
-            if (confirmation) {
-                window.location.href = 'verify.html';
-            }
-        };
-        var onFailure = function registerFailure(err) {
-            alert(err);
-        };
-        event.preventDefault();
-
-        if (password === password2) {
-            register(email, password, onSuccess, onFailure);
-        } else {
-            alert('Passwords do not match');
-        }
-    }
-
-    function handleVerify(event) {
-        var email = $('#emailInputVerify').val();
-        var code = $('#codeInputVerify').val();
-        event.preventDefault();
-        verify(email, code,
-            function verifySuccess(result) {
-                console.log('call result: ' + result);
-                console.log('Successfully verified');
-                alert('Verification successful. You will now be redirected to the login page.');
-                window.location.href = signinUrl;
-            },
-            function verifyError(err) {
-                alert(err);
-            }
-        );
-    }
-}(jQuery));
+    
+    */
