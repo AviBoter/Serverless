@@ -4,7 +4,7 @@ var WildRydes = window.WildRydes || {};
     var signinUrl = '/signin.html';
     
 // signup
-var signupForm =   $('#registrationForm').value;
+var signupForm = $('#registrationForm').value;
 signupForm.addEventListener('submit', (e) => {
 e.preventDefault();
   
