@@ -17,4 +17,5 @@ window._config = {
 
 // Initialize Firebase
 const app = firebase.initializeApp(window._config);
-const auth = firebase.auth();
+const auth = firebase.getAuth();
+onAuthStateChanged(auth, user => { console.log(user); });
