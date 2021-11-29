@@ -30,7 +30,6 @@ WildRydes.signOut = function signOut() {
 
 // login
 const loginForm = document.querySelector('#signinForm');
-if(loginForm)
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
   
@@ -65,7 +64,6 @@ WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject
 });
 
 // listen for auth status changes
-if(auth)
 auth.onAuthStateChanged(user => {
     if (user) {
       console.log('user logged in: ', user);

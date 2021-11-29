@@ -4,8 +4,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase
 
 // Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+window._config = {
 
-const firebaseConfig = {
   apiKey: "AIzaSyCwk3LpzmfZptO78BKWS4YIPW_YTHR31NI",
   authDomain: "authwithfirebase-1.firebaseapp.com",
   projectId: "authwithfirebase-1",
@@ -16,5 +16,5 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(window._config);
 const auth = firebase.auth();
