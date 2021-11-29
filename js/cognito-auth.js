@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     M.Collapsible.init(items);
   
 var WildRydes = window.WildRydes || {};
-
+});
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
 
