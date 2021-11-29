@@ -4,8 +4,7 @@ var WildRydes = window.WildRydes || {};
     var signinUrl = '/signin.html';
     
 // signup
-const signupForm = document.querySelector('#registrationForm');
-if(signupForm)
+const signupForm = $('registrationForm');
 signupForm.addEventListener('submit', (e) => {
 e.preventDefault();
   
@@ -30,7 +29,7 @@ WildRydes.signOut = function signOut() {
 };
 
 // login
-const loginForm = document.querySelector('#signinForm');
+const loginForm = $('#signinForm');
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
   
