@@ -55,6 +55,23 @@ loginForm.addEventListener('submit', (e) => {
 
 });
 
+WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
+    var User = auth.getUsername;
+    if (User) {
+        User.getSession(function sessionCallback(err, session) {
+            if (err) {
+                reject(err);
+            } else if (!session.isValid()) {
+                resolve(null);
+            } else {
+                resolve(session.getIdToken().getJwtToken());
+            }
+        });
+    } else {
+        resolve(null);
+    }
+});
+
     /*
      *  Event Handlers
      */
@@ -162,24 +179,7 @@ function handleVerify(event) {
 
    
 
-    WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
-        var cognitoUser = userPool.getCurrentUser();
-
-        if (cognitoUser) {
-            cognitoUser.getSession(function sessionCallback(err, session) {
-                if (err) {
-                    reject(err);
-                } else if (!session.isValid()) {
-                    resolve(null);
-                } else {
-                    resolve(session.getIdToken().getJwtToken());
-                }
-            });
-        } else {
-            resolve(null);
-        }
-    });
-
+   
 
     
      * Cognito User Pool functions
