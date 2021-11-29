@@ -6,8 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var items = document.querySelectorAll('.collapsible');
     M.Collapsible.init(items);
   
-var WildRydes = window.WildRydes || {};
 });
+
+var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
