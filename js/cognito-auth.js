@@ -29,7 +29,7 @@ WildRydes.signOut = function signOut() {
 };
 
 // login
-/* const loginForm = document.querySelector('#signinForm');
+const loginForm = document.querySelector('#signinForm');
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
   
@@ -45,7 +45,7 @@ loginForm.addEventListener('submit', (e) => {
   });
 
 });
-*/
+
 WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
     var User = auth.getUsername;
     if (User) {
