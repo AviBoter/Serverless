@@ -1,5 +1,5 @@
 var WildRydes = window.WildRydes || {};
-
+const auth = firebase.auth();
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
 
