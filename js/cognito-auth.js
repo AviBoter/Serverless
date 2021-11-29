@@ -1,5 +1,6 @@
 var WildRydes = window.WildRydes || {};
 
+
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
 
