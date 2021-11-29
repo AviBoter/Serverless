@@ -1,4 +1,3 @@
-(function scopeWrapper($) {
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
 
 // Firebase configuration
@@ -13,7 +12,8 @@ const firebaseConfig = {
   measurementId: "G-9LSS9XLLDL"
 };
 
+
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = auth();
-}(jQuery));
+window._app = firebase.initializeApp(firebaseConfig);
+window._auth = firebase.fireauth();
+

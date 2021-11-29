@@ -2,7 +2,7 @@ var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
-
+    
 // signup
 const signupForm = document.querySelector('#registrationForm');
 signupForm.addEventListener('submit', (e) => {
@@ -13,7 +13,7 @@ signupForm.addEventListener('submit', (e) => {
   const password = signupForm['password'].value;
 
   // sign up the user
-  auth.createUserWithEmailAndPassword(email, password).then(cred => {
+  window._auth.createUserWithEmailAndPassword(email, password).then(cred => {
     console.log(cred.user);
     signupForm.reset();
   });
@@ -23,7 +23,7 @@ signupForm.addEventListener('submit', (e) => {
 
 WildRydes.signOut = function signOut() {
     //userPool.getCurrentUser().signOut();
-    auth.signOut().then(() => {
+    window._auth.signOut().then(() => {
     console.log('user signed out');
   })
 };
@@ -38,7 +38,7 @@ loginForm.addEventListener('submit', (e) => {
   const password = loginForm['password'].value;
 
   // log the user in
-  auth.signInWithEmailAndPassword(email, password).then((cred) => {
+  window._auth.signInWithEmailAndPassword(email, password).then((cred) => {
     console.log(cred.user);
     // reset form
     loginForm.reset();
@@ -47,7 +47,7 @@ loginForm.addEventListener('submit', (e) => {
 });
 
 WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
-    var User = auth.getUsername;
+    var User = window._auth.getUsername;
     if (User) {
         User.getSession(function sessionCallback(err, session) {
             if (err) {
@@ -64,7 +64,7 @@ WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject
 });
 
 // listen for auth status changes
-auth.onAuthStateChanged(user => {
+window._auth.onAuthStateChanged(user => {
     if (user) {
       console.log('user logged in: ', user);
     } else {
