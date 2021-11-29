@@ -2,7 +2,7 @@ var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
-    
+window.onload=function(){
 // signup
 const signupForm = document.querySelector('#registrationForm');
 signupForm.addEventListener('submit', (e) => {
@@ -45,7 +45,7 @@ loginForm.addEventListener('submit', (e) => {
   });
 
 });
-
+};
 WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
     var User = window._auth.getUsername;
     if (User) {
