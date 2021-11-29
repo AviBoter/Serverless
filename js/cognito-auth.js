@@ -5,8 +5,9 @@ var WildRydes = window.WildRydes || {};
     
 // signup
 const signupForm = document.querySelector('#registrationForm');
+if(signupForm)
 signupForm.addEventListener('submit', (e) => {
- // e.preventDefault();
+e.preventDefault();
   
   // get user info
   const email = signupForm['email'].value;
