@@ -1,8 +1,5 @@
 var WildRydes = window.WildRydes || {};
 
-const auth = firebase.auth();
-const app = initializeApp(firebaseConfig);
-
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
 
