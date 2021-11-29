@@ -31,7 +31,9 @@ WildRydes.signOut = function signOut() {
 
 // login
 const loginForm = document.querySelector('#signinForm');
+if(loginForm)
 loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
   
   // get user info
   const email = loginForm['email'].value;
