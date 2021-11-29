@@ -1,6 +1,6 @@
 var WildRydes = window.WildRydes || {};
 
-
+const auth = firebase.auth();
 (function scopeWrapper($) {
     var signinUrl = '/signin.html';
 
@@ -66,6 +66,7 @@ WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject
 });
 
 // listen for auth status changes
+
 auth.onAuthStateChanged(user => {
     if (user) {
       console.log('user logged in: ', user);
@@ -76,7 +77,7 @@ auth.onAuthStateChanged(user => {
     /*
      *  Event Handlers
      */
-    const auth = firebase.auth();
+   
 $(function onDocReady() {
     $('#signinForm').submit(handleSignin);
     $('#registrationForm').submit(handleRegister);
