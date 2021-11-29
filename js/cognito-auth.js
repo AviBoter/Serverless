@@ -32,7 +32,6 @@ WildRydes.signOut = function signOut() {
 // login
 const loginForm = document.querySelector('#signinForm');
 loginForm.addEventListener('submit', (e) => {
-  e.preventDefault();
   
   // get user info
   const email = loginForm['email'].value;
@@ -45,9 +44,6 @@ loginForm.addEventListener('submit', (e) => {
     loginForm.reset();
   });
 
-}).catch(function handleTokenError(error) {
-    alert(error);
-    window.location.href = '/signin.html';
 });
 
 WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
