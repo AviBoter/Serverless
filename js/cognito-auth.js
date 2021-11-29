@@ -4,7 +4,7 @@ var WildRydes = window.WildRydes || {};
     var signinUrl = '/signin.html';
     
 // signup
-const signupForm = $('registrationForm');
+const signupForm = document.querySelector('#registrationForm');
 signupForm.addEventListener('submit', (e) => {
 e.preventDefault();
   
@@ -29,13 +29,13 @@ WildRydes.signOut = function signOut() {
 };
 
 // login
-const loginForm = $('#signinForm');
+const loginForm = document.querySelector('#signinForm');
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
   
   // get user info
-  const email = loginForm['email'].value;
-  const password = loginForm['password'].value;
+  var email = $('#emailInputSignin').val();
+  var password = $('#passwordInputSignin').val();
 
   // log the user in
   window._auth.signInWithEmailAndPassword(email, password).then((cred) => {
