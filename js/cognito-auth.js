@@ -45,6 +45,9 @@ loginForm.addEventListener('submit', (e) => {
     loginForm.reset();
   });
 
+}).catch(function handleTokenError(error) {
+    alert(error);
+    window.location.href = '/signin.html';
 });
 
 WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
