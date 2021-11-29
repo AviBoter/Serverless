@@ -15,7 +15,7 @@ auth.onAuthStateChanged(user => {
 // signup
 const signupForm = document.querySelector('#registrationForm');
 signupForm.addEventListener('submit', (e) => {
-  e.preventDefault();
+ // e.preventDefault();
   
   // get user info
   const email = signupForm['email'].value;
