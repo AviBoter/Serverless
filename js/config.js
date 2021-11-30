@@ -15,10 +15,4 @@ const firebaseConfig = {
 // Initialize Firebase
 window._app = initializeApp(firebaseConfig);
 window._auth = getAuth();
-let func = window._auth.onAuthStateChanged(user => {
-  if (user) {
-    console.log('user logged in: ', user);
-  } else {
-    console.log('user logged out');
-  }
-});
+
