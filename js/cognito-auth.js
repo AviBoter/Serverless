@@ -4,7 +4,7 @@ import {
     signInWithEmailAndPassword, signOut,
     onAuthStateChanged
   } from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js'
-  
+
 var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
@@ -17,8 +17,8 @@ signupForm.addEventListener('submit', (e) => {
 e.preventDefault();
   
   // get user info
-  const email = $('email').val();
-  const password = $('password').val();
+  const email = signupForm.querySelector('#emailInputRegister').value;
+  const password = signupForm.querySelector('#passwordInputRegister').value;
 
   createUserWithEmailAndPassword(_auth, email, password)
   .then(cred => {
