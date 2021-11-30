@@ -51,7 +51,7 @@ loginForm.addEventListener('submit', (e) => {
 
   
 WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
-    var User = window._auth.currentUser;
+    var User = window._currentUser;
     if (User) {
         User.getSession(function sessionCallback(err, session) {
             if (err) {
