@@ -1,3 +1,4 @@
+
 var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
