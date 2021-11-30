@@ -1,4 +1,4 @@
-sadas
+(function scopeWrapper($) {
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 // Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -27,3 +27,4 @@ window._auth.onAuthStateChanged((user) =>{
 });
 //v2
 window._currentUser = window._auth.currentUser;
+})()
