@@ -1,4 +1,10 @@
-
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword, signOut,
+    onAuthStateChanged
+  } from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js'
+  
 var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
