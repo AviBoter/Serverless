@@ -1,7 +1,8 @@
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
-import { getAuth, onAuthStateChanged } from "firebase/auth";
     // Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
