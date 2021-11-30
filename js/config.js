@@ -20,5 +20,5 @@ const firebaseConfig = {
 
 // Initialize Firebase
 window._app = initializeApp(firebaseConfig);
-window._auth = getAuth();
+window._auth = getAuth(window._app);
 console.log(_auth);
