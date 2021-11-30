@@ -15,4 +15,10 @@ const firebaseConfig = {
 // Initialize Firebase
 window._app = initializeApp(firebaseConfig);
 window._auth = getAuth();
-
+window._auth.onAuthStateChanged((user) =>{
+  if(user){
+      store.dispatch('setUser', user);
+  }else{
+      store.dispatch('setUser', null);
+  }
+});
