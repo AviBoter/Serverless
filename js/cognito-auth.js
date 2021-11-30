@@ -1,9 +1,92 @@
-/*global WildRydes _config AmazonCognitoIdentity AWSCognito*/
 
 var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
-    var signinUrl = '/signin.html';
+    
+var signinUrl = '/signin.html';
+
+// signup
+const signupForm = document.querySelector('#registrationForm');
+signupForm.addEventListener('submit', (e) => {
+e.preventDefault();
+  
+  // get user info
+  const email = $('email').val();
+  const password = $('password').val();
+
+  createUserWithEmailAndPassword(_auth, email, password)
+  .then(cred => {
+    console.log('user created:', cred.user)
+    signupForm.reset()
+  })
+  .catch(err => {
+    console.log(err.message)
+  })
+});
+
+// logout
+
+WildRydes.signOut = function signOut() {
+    //userPool.getCurrentUser().signOut();
+    window._auth.signOut().then(() => {
+    console.log('user signed out');
+  })
+};
+
+// login
+const loginForm = document.querySelector('#signinForm');
+if(loginForm)
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  // get user info
+  var email = $('#emailInputSignin').val();
+  var password = $('#passwordInputSignin').val();
+
+  signInWithEmailAndPassword(_auth, email, password)
+  .then(cred => {
+    console.log('user logged in:', cred.user)
+    loginForm.reset()
+  })
+  .catch(err => {
+    console.log(err.message)
+  })
+});
+
+const unsubAuth = onAuthStateChanged(_auth, (user) => {
+    console.log('user status changed:', user)
+  });
+
+WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
+    var User = window._currentUser;
+    if (User) {
+        User.getSession(function sessionCallback(err, session) {
+            if (err) {
+                reject(err);
+            } else if (!session.isValid()) {
+                resolve(null);
+            } else {
+                resolve(session.getIdToken().getJwtToken());
+            }
+        });
+    } else {
+        resolve(null);
+    }
+});
+}(jQuery));
+
+
+
+
+
+
+
+
+/*global WildRydes _config AmazonCognitoIdentity AWSCognito
+
+
+
+
 
     var poolData = {
         UserPoolId: _config.cognito.userPoolId,
@@ -25,32 +108,13 @@ var WildRydes = window.WildRydes || {};
         AWSCognito.config.region = _config.cognito.region;
     }
 
-    WildRydes.signOut = function signOut() {
-        userPool.getCurrentUser().signOut();
-    };
+   
 
-    WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
-        var cognitoUser = userPool.getCurrentUser();
+   
 
-        if (cognitoUser) {
-            cognitoUser.getSession(function sessionCallback(err, session) {
-                if (err) {
-                    reject(err);
-                } else if (!session.isValid()) {
-                    resolve(null);
-                } else {
-                    resolve(session.getIdToken().getJwtToken());
-                }
-            });
-        } else {
-            resolve(null);
-        }
-    });
-
-
-    /*
+    
      * Cognito User Pool functions
-     */
+  
 
     function register(email, password, onSuccess, onFailure) {
         var dataEmail = {
@@ -104,9 +168,151 @@ var WildRydes = window.WildRydes || {};
         return email.replace('@', '-at-');
     }
 
-    /*
+    
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*global WildRydes _config AmazonCognitoIdentity AWSCognito
+
+var WildRydes = window.WildRydes || {};
+
+(function scopeWrapper($) {
+    var signinUrl = '/signin.html';
+
+    var poolData = {
+        UserPoolId: _config.cognito.userPoolId,
+        ClientId: _config.cognito.userPoolClientId
+    };
+
+    var userPool;
+
+    if (!(_config.cognito.userPoolId &&
+          _config.cognito.userPoolClientId &&
+          _config.cognito.region)) {
+        $('#noCognitoMessage').show();
+        return;
+    }
+
+    userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+    if (typeof AWSCognito !== 'undefined') {
+        AWSCognito.config.region = _config.cognito.region;
+    }
+
+    WildRydes.signOut = function signOut() {
+        userPool.getCurrentUser().signOut();
+    };
+
+    WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
+        var cognitoUser = userPool.getCurrentUser();
+
+        if (cognitoUser) {
+            cognitoUser.getSession(function sessionCallback(err, session) {
+                if (err) {
+                    reject(err);
+                } else if (!session.isValid()) {
+                    resolve(null);
+                } else {
+                    resolve(session.getIdToken().getJwtToken());
+                }
+            });
+        } else {
+            resolve(null);
+        }
+    });
+
+
+  
+     * Cognito User Pool functions
+     
+
+    function register(email, password, onSuccess, onFailure) {
+        var dataEmail = {
+            Name: 'email',
+            Value: email
+        };
+        var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+
+        userPool.signUp(toUsername(email), password, [attributeEmail], null,
+            function signUpCallback(err, result) {
+                if (!err) {
+                    onSuccess(result);
+                } else {
+                    onFailure(err);
+                }
+            }
+        );
+    }
+
+    function signin(email, password, onSuccess, onFailure) {
+        var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
+            Username: toUsername(email),
+            Password: password
+        });
+
+        var cognitoUser = createCognitoUser(email);
+        cognitoUser.authenticateUser(authenticationDetails, {
+            onSuccess: onSuccess,
+            onFailure: onFailure
+        });
+    }
+
+    function verify(email, code, onSuccess, onFailure) {
+        createCognitoUser(email).confirmRegistration(code, true, function confirmCallback(err, result) {
+            if (!err) {
+                onSuccess(result);
+            } else {
+                onFailure(err);
+            }
+        });
+    }
+
+    function createCognitoUser(email) {
+        return new AmazonCognitoIdentity.CognitoUser({
+            Username: toUsername(email),
+            Pool: userPool
+        });
+    }
+
+    function toUsername(email) {
+        return email.replace('@', '-at-');
+    }
+
+    
      *  Event Handlers
-     */
+     
 
     $(function onDocReady() {
         $('#signinForm').submit(handleSignin);
@@ -171,3 +377,4 @@ var WildRydes = window.WildRydes || {};
         );
     }
 }(jQuery));
+*/
