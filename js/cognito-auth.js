@@ -47,7 +47,14 @@ loginForm.addEventListener('submit', (e) => {
 
 });
 
-
+window._auth.onAuthStateChanged((user) =>{
+    if(user){
+        store.dispatch('setUser', user);
+    }else{
+        store.dispatch('setUser', null);
+    }
+  });
+  
 WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
     var User = window._auth.currentUser;
     if (User) {
