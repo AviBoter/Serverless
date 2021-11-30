@@ -4,7 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword, signOut,
   onAuthStateChanged
-} from 'firebase/auth'
+} from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js'
 // Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
