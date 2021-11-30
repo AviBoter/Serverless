@@ -10,8 +10,8 @@ signupForm.addEventListener('submit', (e) => {
 e.preventDefault();
   
   // get user info
-  const email = signupForm['email'].value;
-  const password = signupForm['password'].value;
+  const email = $('email').val();
+  const password = $('password').val();
 
   // sign up the user
   window._auth.createUserWithEmailAndPassword(email, password).then(cred => {
