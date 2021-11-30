@@ -18,15 +18,10 @@ window._auth = getAuth();
 window._auth.onAuthStateChanged((user) =>{
   if(user){
       store.dispatch('setUser', user);
+      window._currentUser = window._auth.currentUser;
   }else{
       store.dispatch('setUser', null);
   }
 });
 //v2
-onAuthStateChanged((user) =>{
-  if(user){
-      store.dispatch('setUser', user);
-  }else{
-      store.dispatch('setUser', null);
-  }
-});
+window._currentUser = window._auth.currentUser;
