@@ -14,7 +14,7 @@ e.preventDefault();
   const password = $('password').val();
 
   // sign up the user
-    _auth.createUserWithEmailAndPassword(email, password).then(cred => {
+  window._auth.createUserWithEmailAndPassword(email, password).then(cred => {
     console.log(cred.user);
     signupForm.reset();
   });
@@ -24,7 +24,7 @@ e.preventDefault();
 
 WildRydes.signOut = function signOut() {
     //userPool.getCurrentUser().signOut();
-    _auth.signOut().then(() => {
+    window._auth.signOut().then(() => {
     console.log('user signed out');
   })
 };
@@ -40,7 +40,7 @@ loginForm.addEventListener('submit', (e) => {
   var password = $('#passwordInputSignin').val();
 
   // log the user in
-  _auth.signInWithEmailAndPassword(email, password).then((cred) => {
+  window._auth.signInWithEmailAndPassword(email, password).then((cred) => {
     console.log(cred.user);
     // reset form
     loginForm.reset();
@@ -49,16 +49,17 @@ loginForm.addEventListener('submit', (e) => {
 });
 
 
-_auth.onAuthStateChanged((user) =>{
+window._auth.onAuthStateChanged((user) =>{
     if(user){
         store.dispatch('setUser', user);
+        window._currentUser = window._auth.currentUser;
     }else{
         store.dispatch('setUser', null);
     }
   });
 
 WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
-    var User = _auth.currentUser;
+    var User = window._currentUser;
     if (User) {
         User.getSession(function sessionCallback(err, session) {
             if (err) {

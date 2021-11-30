@@ -1,3 +1,4 @@
+sadas
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 // Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -15,6 +16,7 @@ const firebaseConfig = {
 // Initialize Firebase
 window._app = initializeApp(firebaseConfig);
 window._auth = getAuth();
+console.log(_auth);
 window._auth.onAuthStateChanged((user) =>{
   if(user){
       store.dispatch('setUser', user);
