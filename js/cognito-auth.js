@@ -49,7 +49,7 @@ loginForm.addEventListener('submit', (e) => {
 });
 
 
-auth.onAuthStateChanged((user) =>{
+window._auth.onAuthStateChanged((user) =>{
     if(user){
         store.dispatch('setUser', user);
         window._currentUser = window._auth.currentUser;
