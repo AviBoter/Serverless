@@ -13,15 +13,8 @@ const firebaseConfig = {
 
 
 // Initialize Firebase
-window._app = initializeApp(firebaseConfig);
-window._auth = getAuth();
-window._auth.onAuthStateChanged((user) =>{
-  if(user){
-      store.dispatch('setUser', user);
-      window._currentUser = window._auth.currentUser;
-  }else{
-      store.dispatch('setUser', null);
-  }
-});
-//v2
-window._currentUser = window._auth.currentUser;
+export var app = initializeApp(firebaseConfig);
+export var auth = getAuth();
+
+
+  

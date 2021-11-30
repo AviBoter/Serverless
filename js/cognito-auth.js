@@ -1,3 +1,6 @@
+import * as FireBaseVar from './config.js'
+
+
 var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
@@ -14,7 +17,7 @@ e.preventDefault();
   const password = $('password').val();
 
   // sign up the user
-  window._auth.createUserWithEmailAndPassword(email, password).then(cred => {
+  FireBaseVar.auth.createUserWithEmailAndPassword(email, password).then(cred => {
     console.log(cred.user);
     signupForm.reset();
   });
@@ -24,7 +27,7 @@ e.preventDefault();
 
 WildRydes.signOut = function signOut() {
     //userPool.getCurrentUser().signOut();
-    window._auth.signOut().then(() => {
+    FireBaseVar.auth.signOut().then(() => {
     console.log('user signed out');
   })
 };
@@ -40,7 +43,7 @@ loginForm.addEventListener('submit', (e) => {
   var password = $('#passwordInputSignin').val();
 
   // log the user in
-  window._auth.signInWithEmailAndPassword(email, password).then((cred) => {
+  FireBaseVar.auth.signInWithEmailAndPassword(email, password).then((cred) => {
     console.log(cred.user);
     // reset form
     loginForm.reset();
@@ -49,7 +52,15 @@ loginForm.addEventListener('submit', (e) => {
 });
 
 
-  
+FireBaseVar.auth.onAuthStateChanged((user) =>{
+    if(user){
+        store.dispatch('setUser', user);
+        window._currentUser = window._auth.currentUser;
+    }else{
+        store.dispatch('setUser', null);
+    }
+  });
+
 WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
     var User = window._currentUser;
     if (User) {
