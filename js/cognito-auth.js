@@ -1,6 +1,3 @@
-import * as FireBaseVar from './config.js'
-
-
 var WildRydes = window.WildRydes || {};
 
 (function scopeWrapper($) {
