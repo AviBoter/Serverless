@@ -2,7 +2,8 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword, signOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    EmailAuthProvider 
   } from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js'
 
 var WildRydes = window.WildRydes || {};
@@ -75,6 +76,21 @@ if(loginForm)
   })
 });
 
+//validate email
+function verify(email, onSuccess, onFailure) {
+const credential = EmailAuthProvider.credentialWithLink(email, window.location.href);
+  // Link the credential to the current user.
+  linkWithCredential(_auth.currentUser, credential)
+    .then((usercred) => {
+      // The provider is now successfully linked.
+      // The phone user can now sign in with their phone number or email.
+      onSuccess(usercred);
+    })
+    .catch((error) => {
+      // Some error occurred.
+      onFailure(error)
+    });
+}
 const unsubAuth = onAuthStateChanged(_auth, (user) => {
     console.log('user status changed:', user)
   });
