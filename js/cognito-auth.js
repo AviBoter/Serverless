@@ -103,7 +103,7 @@ const unsubAuth = onAuthStateChanged(_auth, (user) => {
   $(function onDocReady() {
     $('#signinForm').submit(handleSignin);
     $('#registrationForm').submit(handleRegister);
-    $('#verifyForm').submit(handleVerify);
+  //  $('#verifyForm').submit(handleVerify);
 });
 
 function handleSignin(event) {
