@@ -34,7 +34,7 @@ e.preventDefault();
 
 WildRydes.signOut = function signOut() {
     //userPool.getCurrentUser().signOut();
-    window._auth.signOut().then(() => {
+    _auth.signOut().then(() => {
     console.log('user signed out');
   })
 };
@@ -46,8 +46,8 @@ loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
   
   // get user info
-  var email = $('#emailInputSignin').val();
-  var password = $('#passwordInputSignin').val();
+  var email = loginForm.querySelector('#emailInputSignin').value;
+  var password =oginForm.querySelector('#passwordInputSignin').value;
 
   signInWithEmailAndPassword(_auth, email, password)
   .then(cred => {
@@ -63,18 +63,16 @@ const unsubAuth = onAuthStateChanged(_auth, (user) => {
     console.log('user status changed:', user)
   });
 
+  var User = _auth.currentUser;
+ 
 WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
-    var User = window._currentUser;
+    var User = _auth.currentUser;
     if (User) {
-        User.getSession(function sessionCallback(err, session) {
-            if (err) {
-                reject(err);
-            } else if (!session.isValid()) {
-                resolve(null);
-            } else {
-                resolve(session.getIdToken().getJwtToken());
-            }
-        });
+        User.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+            resolve(idToken.getJwtToken());
+          }).catch(function(error) {
+            reject(err);
+          }); 
     } else {
         resolve(null);
     }
