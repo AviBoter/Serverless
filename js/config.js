@@ -17,7 +17,7 @@ const firebaseConfig = {
   measurementId: "G-9LSS9XLLDL"
 };
 
-
+window.invokeUrl = 'https://8q4muu2mui.execute-api.us-east-1.amazonaws.com/prod';
 // Initialize Firebase
 window._app = initializeApp(firebaseConfig);
 window._auth = getAuth(window._app);
