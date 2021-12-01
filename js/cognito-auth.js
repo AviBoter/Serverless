@@ -4,7 +4,8 @@ import {
     signInWithEmailAndPassword, signOut,
     onAuthStateChanged,
     EmailAuthProvider,
-    browserSessionPersistence  
+    browserSessionPersistence,
+    getIdToken
   } from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js'
 
 var WildRydes = window.WildRydes || {};
@@ -151,7 +152,7 @@ WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject
     onAuthStateChanged(_auth, (user) => {
         console.log(user + "Look here!")
         if (user) {
-            user.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+            getIdToken(user).then(function(idToken) {
                 resolve(idToken);
                 console.log("valid token!")
               }).catch(function(error) {
