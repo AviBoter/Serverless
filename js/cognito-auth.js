@@ -3,7 +3,8 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword, signOut,
     onAuthStateChanged,
-    EmailAuthProvider 
+    EmailAuthProvider,
+    browserSessionPersistence  
   } from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js'
 
 var WildRydes = window.WildRydes || {};
@@ -14,6 +15,7 @@ var signinUrl = '/signin.html';
 
 WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
     var User = _auth.currentUser;
+    console.log(_auth.currentUser + "Look here!")
     if (User) {
         User.getIdToken(/* forceRefresh */ true).then(function(idToken) {
             resolve(idToken.getJwtToken());
@@ -23,8 +25,8 @@ WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject
             console.log("invalid token!")
           }); 
     } else {
-        resolve(null);
         console.log("token is null!")
+        resolve(null);
     }
 });
 
@@ -103,7 +105,7 @@ const unsubAuth = onAuthStateChanged(_auth, (user) => {
   $(function onDocReady() {
     $('#signinForm').submit(handleSignin);
     $('#registrationForm').submit(handleRegister);
-  //  $('#verifyForm').submit(handleVerify);
+    $('#verifyForm').submit(handleVerify);
 });
 
 function handleSignin(event) {
