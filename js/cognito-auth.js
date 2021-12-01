@@ -13,23 +13,6 @@ var WildRydes = window.WildRydes || {};
     
 var signinUrl = '/signin.html';
 
-WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
-    var User = _auth.currentUser;
-    console.log(_auth.currentUser + "Look here!")
-    if (User) {
-        User.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-            resolve(idToken.getJwtToken());
-            console.log("valid token!")
-          }).catch(function(error) {
-            reject(err);
-            console.log("invalid token!")
-          }); 
-    } else {
-        console.log("token is null!")
-        resolve(null);
-    }
-});
-
 // signup
 const signupForm = document.querySelector('#registrationForm');
 if(signupForm)
@@ -164,6 +147,24 @@ function handleVerify(event) {
         }
     );
 }
+
+WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
+    var User = _auth.currentUser;
+    console.log(_auth.currentUser + "Look here!")
+    if (User) {
+        User.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+            resolve(idToken.getJwtToken());
+            console.log("valid token!")
+          }).catch(function(error) {
+            reject(err);
+            console.log("invalid token!")
+          }); 
+    } else {
+        console.log("token is null!")
+        resolve(null);
+    }
+});
+
 
 }(jQuery));
 
