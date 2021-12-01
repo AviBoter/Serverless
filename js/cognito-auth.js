@@ -79,9 +79,8 @@ const credential = EmailAuthProvider.credentialWithLink(email, window.location.h
       onFailure(error)
     });
 }
-const unsubAuth = onAuthStateChanged(_auth, (user) => {
-    console.log('user status changed:', user)
-  });
+ 
+  //event handling:
 
   var User = _auth.currentUser;
  
@@ -149,20 +148,22 @@ function handleVerify(event) {
 }
 
 WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
-    var User = _auth.currentUser;
-    console.log(_auth.currentUser + "Look here!")
-    if (User) {
-        User.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-            resolve(idToken.getJwtToken());
-            console.log("valid token!")
-          }).catch(function(error) {
-            reject(err);
-            console.log("invalid token!")
-          }); 
-    } else {
-        console.log("token is null!")
-        resolve(null);
-    }
+    onAuthStateChanged(_auth, (user) => {
+        console.log(user + "Look here!")
+        if (user) {
+            user.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                resolve(idToken.getJwtToken());
+                console.log("valid token!")
+              }).catch(function(error) {
+                reject(err);
+                console.log("invalid token!")
+              }); 
+        } else {
+            console.log("token is null!")
+            resolve(null);
+        }
+      });
+   
 });
 
 
