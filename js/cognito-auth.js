@@ -152,7 +152,7 @@ WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject
         console.log(user + "Look here!")
         if (user) {
             user.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-                resolve(idToken.getJwtToken());
+                resolve(idToken);
                 console.log("valid token!")
               }).catch(function(error) {
                 reject(error);
