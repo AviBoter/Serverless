@@ -48,7 +48,7 @@ loginForm.addEventListener('submit', (e) => {
   
   // get user info
   var email = loginForm.querySelector('#emailInputSignin').value;
-  var password =oginForm.querySelector('#passwordInputSignin').value;
+  var password = loginForm.querySelector('#passwordInputSignin').value;
 
   signInWithEmailAndPassword(_auth, email, password)
   .then(cred => {
