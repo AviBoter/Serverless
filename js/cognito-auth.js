@@ -12,19 +12,6 @@ var WildRydes = window.WildRydes || {};
     
 var signinUrl = '/signin.html';
 
-WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
-    var User = _auth.currentUser;
-    if (User) {
-        User.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-            resolve(idToken.getJwtToken());
-          }).catch(function(error) {
-            reject(err);
-          }); 
-    } else {
-        resolve(null);
-    }
-});
-
 // signup
 const signupForm = document.querySelector('#registrationForm');
 if(signupForm)
@@ -159,6 +146,20 @@ function handleVerify(event) {
         }
     );
 }
+
+WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject) {
+    var User = _auth.currentUser;
+    if (User) {
+        User.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+            resolve(idToken.getJwtToken());
+          }).catch(function(error) {
+            reject(err);
+          }); 
+    } else {
+        resolve(null);
+    }
+});
+
 }(jQuery));
 
 
