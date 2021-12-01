@@ -13,6 +13,7 @@ var signinUrl = '/signin.html';
 
 // signup
 const signupForm = document.querySelector('#registrationForm');
+if(signupForm)
 signupForm.addEventListener('submit', (e) => {
 e.preventDefault();
   
