@@ -65,7 +65,7 @@ WildRydes.map = WildRydes.map || {};
             }
         });
 
-        if (!_config.api.invokeUrl) {
+        if (!window.invokeUrl) {
             $('#noApiMessage').show();
         }
     });
