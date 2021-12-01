@@ -155,7 +155,7 @@ WildRydes.authToken = new Promise(function fetchCurrentAuthToken(resolve, reject
                 resolve(idToken.getJwtToken());
                 console.log("valid token!")
               }).catch(function(error) {
-                reject(err);
+                reject(error);
                 console.log("invalid token!")
               }); 
         } else {
