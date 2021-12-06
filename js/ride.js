@@ -39,6 +39,7 @@ WildRydes.map = WildRydes.map || {};
     }
 
     function completeRequest(result) {
+        result = JSON.parse(result);
         var unicorn;
         var pronoun;
         console.log('Response received from API: ', result);
