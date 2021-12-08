@@ -18,7 +18,7 @@ WildRydes.map = WildRydes.map || {};
     function requestUnicorn(pickupLocation) {
         $.ajax({
             method: 'POST',
-            crossDomain: true,
+            crossDomain: true, //added - needs validation!
             url: window.invokeUrl + '/ride',
             headers: {
                 Authorization: authToken,

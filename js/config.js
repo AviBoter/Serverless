@@ -18,7 +18,6 @@ const firebaseConfig = {
 };
 
 window.invokeUrl = 'https://8q4muu2mui.execute-api.us-east-1.amazonaws.com/prod';
-//'https://8q4muu2mui.execute-api.us-east-1.amazonaws.com/prod';
                
 // Initialize Firebase
 window._app = initializeApp(firebaseConfig);
