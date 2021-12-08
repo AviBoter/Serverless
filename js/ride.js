@@ -46,9 +46,9 @@ WildRydes.map = WildRydes.map || {};
         console.log('Response received from API: ', result);
         unicorn = result.Unicorn;
         pronoun = 'her';
-        displayUpdate(unicorn.Name + ', your ' + unicorn.Color + ' unicorn, is on ' + pronoun + ' way.');
+        displayUpdate(', your ' + ' unicorn, is on ' + pronoun + ' way.');
         animateArrival(function animateCallback() {
-            displayUpdate(unicorn.Name + ' has arrived. Giddy up!');
+            displayUpdate(' has arrived. Giddy up!');
             WildRydes.map.unsetLocation();
             $('#request').prop('disabled', 'disabled');
             $('#request').text('Set Pickup');
