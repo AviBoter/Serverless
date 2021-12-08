@@ -19,6 +19,7 @@ WildRydes.map = WildRydes.map || {};
         $.ajax({
             method: 'POST',
             crossDomain: true, //added - needs validation!
+            headers: { 'Access-Control-Allow-Origin': '*' },
             url: window.invokeUrl + '/ride',
             headers: {
                 Authorization: authToken,
