@@ -23,6 +23,7 @@ WildRydes.map = WildRydes.map || {};
             url: window.invokeUrl + '/ride',
             headers: {
                 Authorization: authToken,
+                AccessControlAllowOrigin: '*',
             },
             data: JSON.stringify({
                 PickupLocation: {
