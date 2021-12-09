@@ -1,4 +1,4 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js'
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js'
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -13,8 +13,8 @@ const firebaseConfig = {
   projectId: "authwithfirebase-1",
   storageBucket: "authwithfirebase-1.appspot.com",
   messagingSenderId: "477033394428",
-  appId: "1:477033394428:web:4b3cf282fddb3b305e2779",
-  measurementId: "G-9LSS9XLLDL"
+  appId: "1:477033394428:web:bee307574bc9c11c5e2779",
+  measurementId: "${config.measurementId}"
 };
 
 window.invokeUrl = 'https://8q4muu2mui.execute-api.us-east-1.amazonaws.com/prod';
